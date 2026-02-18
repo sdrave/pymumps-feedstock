@@ -13,10 +13,8 @@ source:
 build:
   number: 1016
   script: |
-    pip install . -vv --global-option="build_ext" \
-       --global-option="-I$PREFIX/include" \
-       --global-option="-L$PREFIX/lib"
-  skip: true  # [win]
+    pip install . -vv --global-option="build_ext" --global-option="-I$PREFIX/include" --global-option="-L$PREFIX/lib"    # [osx or linux]
+    pip install . -vv --global-option="build_ext" --global-option="-I%PREFIX%\Library\include" --global-option="-L%PREFIX%\Library\lib"    # [win]
   
 requirements:
   build:
@@ -26,8 +24,9 @@ requirements:
   host:
     - cython
     - python
-    - mumps-mpi
-    - mumps-include
+    - mumps-seq      # [win]
+    - mumps-mpi      # [osx or linux]
+    - mumps-include  # [osx or linux]
     - setuptools
     - mpi4py
     - pip
@@ -35,12 +34,27 @@ requirements:
     - python
     - scipy
     - setuptools
-    - mumps-mpi
+    - mumps-seq      # [win]
+    - mumps-mpi      # [osx or linux]
+
     - mpi4py
 
 test:
+  source_files:
+    - examples
   imports:
     - mumps
+  requires:
+    - cython
+    - mumps-seq      # [win]
+    - mumps-mpi      # [osx or linux]
+    - mumps-include  # [osx or linux]
+    - python
+    - mpi4py
+    - numpy
+  commands:
+    - python examples/dsimpletest.py
+
 
 about:
   home: https://github.com/PyMUMPS/pymumps.git
