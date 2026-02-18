@@ -1,5 +1,5 @@
 {% set name = "PyMUMPS" %}
-{% set version = "0.3.2" %}
+{% set version = "0.4.0" %}
 
 package:
   name: {{ name|lower }}
@@ -8,13 +8,13 @@ package:
 source:
   fn: {{ version }}.tar.gz
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: f290ec4850098f108fb91cb9e7fa07302ebf5076e4329f8e6ea4924de8ba35df
+  sha256: 1b55cdc7c3998fda874d8078d2348228a6759cc5bed00f3f1fc1745ce727e43d
 
 build:
-  number: 1016
+  number: 0
   script: |
-    pip install . -vv --global-option="build_ext" --global-option="-I$PREFIX/include" --global-option="-L$PREFIX/lib"    # [osx or linux]
-    pip install . -vv --global-option="build_ext" --global-option="-I%PREFIX%\Library\include" --global-option="-L%PREFIX%\Library\lib"    # [win]
+    pip install -v -C build.verbose=true -C cmake.define.MUMPS_ROOT=$PREFIX .           # [osx or linux]
+    pip install -v -C build.verbose=true -C cmake.define.MUMPS_ROOT=%PREFIX%\Library .  # [win]
   
 requirements:
   build:
@@ -27,21 +27,19 @@ requirements:
     - mumps-seq      # [win]
     - mumps-mpi      # [osx or linux]
     - mumps-include  # [osx or linux]
-    - setuptools
+    - cmake
     - mpi4py
     - pip
   run:
     - python
-    - scipy
-    - setuptools
+    - numpy
     - mumps-seq      # [win]
     - mumps-mpi      # [osx or linux]
-
     - mpi4py
 
 test:
   source_files:
-    - examples
+    - tests
   imports:
     - mumps
   requires:
@@ -52,8 +50,10 @@ test:
     - python
     - mpi4py
     - numpy
+    - scipy
+    - pytest
   commands:
-    - python examples/dsimpletest.py
+    - pytest
 
 
 about:
