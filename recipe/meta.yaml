@@ -21,6 +21,8 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
+    - cmake
+    - ninja
   host:
     - cython
     - python
@@ -30,7 +32,6 @@ requirements:
     - mpi4py
     - pip
     - scikit-build-core
-    - cmake
   run:
     - python
     - numpy
