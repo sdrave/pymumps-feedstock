@@ -13,6 +13,7 @@ source:
 build:
   number: 0
   script: |
+    export SKBUILD_CMAKE_GENERATOR=Ninja
     pip install -v -C build.verbose=true -C cmake.define.MUMPS_ROOT=$PREFIX .           # [osx or linux]
     pip install -v -C build.verbose=true -C cmake.define.MUMPS_ROOT=%PREFIX%\Library .  # [win]
   
