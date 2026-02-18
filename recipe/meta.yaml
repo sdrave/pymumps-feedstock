@@ -1,8 +1,8 @@
-{% set name = "PyMUMPS" %}
+{% set name = "pymumps" %}
 {% set version = "0.4.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
   
 source:
