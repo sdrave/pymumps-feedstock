@@ -27,9 +27,9 @@ requirements:
     - mumps-seq      # [win]
     - mumps-mpi      # [osx or linux]
     - mumps-include  # [osx or linux]
-    - cmake
     - mpi4py
     - pip
+    - scikit-build-core
   run:
     - python
     - numpy
