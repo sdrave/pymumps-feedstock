@@ -30,6 +30,7 @@ requirements:
     - mpi4py
     - pip
     - scikit-build-core
+    - cmake
   run:
     - python
     - numpy
